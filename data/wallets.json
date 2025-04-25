@@ -1,0 +1,40 @@
+{
+  "wallets": [
+    {
+      "name": "TEC Treasury ETH",
+      "address": "YOUR_ETH_WALLET_ADDRESS_HERE",
+      "chain": "ethereum",
+      "token_contracts": [
+        {
+          "name": "TEC Token",
+          "address": "TEC_TOKEN_CONTRACT_ADDRESS",
+          "decimals": 18
+        }
+      ],
+      "track_native_balance": true
+    },
+    {
+      "name": "TEC Treasury XRP",
+      "address": "YOUR_XRP_WALLET_ADDRESS_HERE",
+      "chain": "xrp",
+      "track_native_balance": true
+    },
+    {
+      "name": "TEC Treasury ADA",
+      "address": "YOUR_ADA_WALLET_ADDRESS_HERE", 
+      "chain": "cardano",
+      "track_native_balance": true,
+      "policy_ids": [
+        "YOUR_CARDANO_POLICY_ID_HERE"
+      ]
+    }
+  ],
+  "tracking_settings": {
+    "update_frequency_hours": 6,
+    "price_feeds": ["coingecko", "cryptocompare"],
+    "notification_thresholds": {
+      "percentage_change": 5.0,
+      "minimum_value_change_usd": 1000
+    }
+  }
+}

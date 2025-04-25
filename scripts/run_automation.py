@@ -5,6 +5,7 @@ This script runs the full automation pipeline for The Elidoras Codex:
 1. Fetches tasks from ClickUp
 2. Processes them with AI content enhancement
 3. Posts the enhanced content to WordPress
+4. Backs up content to Google Cloud Storage
 """
 import os
 import sys
@@ -22,6 +23,7 @@ sys.path.append(parent_dir)
 from agents.tecbot import TECBot
 from agents.clickup_agent import ClickUpAgent
 from agents.wp_poster import WordPressAgent
+from agents.gcp_storage import GCPStorageAgent
 
 # Configure logging
 logging.basicConfig(
@@ -54,6 +56,7 @@ def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
         "tasks_processed": 0,
         "content_enhanced": 0,
         "posts_created": 0,
+        "backups_created": 0,
         "errors": []
     }
     
@@ -63,6 +66,7 @@ def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
         clickup_agent = ClickUpAgent(config_path)
         tecbot = TECBot(config_path)
         wp_agent = WordPressAgent(config_path)
+        gcp_agent = GCPStorageAgent(config_path)
         
         # Step 1: Get tasks from ClickUp
         ready_status = "Ready for Publishing"  # Or get from config
@@ -116,6 +120,30 @@ def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
                 if post_result.get("success"):
                     results["posts_created"] += 1
                     post_url = post_result.get("post_url", "")
+                    post_id = post_result.get("post_id", "")
+                    
+                    # Step 3a: Backup the post data to Google Cloud Storage
+                    backup_data = {
+                        "post_id": post_id,
+                        "post_url": post_url,
+                        "title": post_title,
+                        "content": enhanced_content,
+                        "excerpt": task_name,
+                        "task_id": task_id,
+                        "task_name": task_name,
+                        "timestamp": datetime.now().isoformat()
+                    }
+                    
+                    backup_result = gcp_agent.backup_wordpress_data(
+                        backup_data, 
+                        f"post_{post_id}_{task_id}_{datetime.now().strftime('%Y%m%d')}"
+                    )
+                    
+                    if backup_result.get("success"):
+                        results["backups_created"] += 1
+                        logger.info(f"Post backup created: {backup_result.get('url')}")
+                    else:
+                        logger.warning(f"Failed to backup post: {backup_result.get('error')}")
                     
                     # Step 4: Update ClickUp task with the WordPress post URL
                     comment = f"Content published to WordPress: {post_url}"
@@ -133,6 +161,29 @@ def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
             except Exception as e:
                 logger.error(f"Error processing task {task_id}: {e}")
                 results["errors"].append(f"Task {task_id} processing failed: {str(e)}")
+        
+        # Step 5: Save overall execution log to Google Cloud Storage
+        try:
+            log_data = {
+                "execution_date": datetime.now().isoformat(),
+                "results": results,
+                "tasks_processed": results["tasks_processed"],
+                "posts_created": results["posts_created"],
+                "content_enhanced": results["content_enhanced"],
+                "backups_created": results["backups_created"]
+            }
+            
+            log_backup_result = gcp_agent.backup_wordpress_data(
+                log_data,
+                f"execution_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            )
+            
+            if log_backup_result.get("success"):
+                logger.info(f"Execution log backup created: {log_backup_result.get('url')}")
+            else:
+                logger.warning(f"Failed to backup execution log: {log_backup_result.get('error')}")
+        except Exception as e:
+            logger.error(f"Error saving execution log to GCP: {e}")
         
         logger.info("TEC automation pipeline completed")
         
@@ -164,6 +215,7 @@ if __name__ == "__main__":
     print(f"Tasks processed: {results['tasks_processed']}")
     print(f"Content enhanced: {results['content_enhanced']}")
     print(f"WordPress posts created: {results['posts_created']}")
+    print(f"GCP backups created: {results['backups_created']}")
     print(f"Duration: {duration:.2f} seconds")
     
     if results["errors"]:
