@@ -228,15 +228,37 @@ add_action('rest_api_init', 'tec_theme_register_rest_routes');
  * Callback function to get factions data
  * Integrates with our JSON data file
  */
-function tec_theme_get_factions() {
-    // Path to factions JSON file in the data directory
-    $factions_file = ABSPATH . '../data/factions.json';
+function tec_theme_get_factions_data_from_json() {
+    // Corrected path using dirname() to go up one level from theme dir, then one more level up
+    $factions_file = dirname(TEC_THEME_DIR) . '/../data/factions.json'; 
     
     if (file_exists($factions_file)) {
-        $factions_data = json_decode(file_get_contents($factions_file), true);
-        return new WP_REST_Response($factions_data, 200);
+        $factions_json = file_get_contents($factions_file);
+        if ($factions_json === false) {
+            // Handle file read error
+            return array('error' => 'Could not read factions file.');
+        }
+        $factions_data = json_decode($factions_json, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            // Handle JSON decode error
+            return array('error' => 'Could not decode factions JSON: ' . json_last_error_msg());
+        }
+        return $factions_data;
     } else {
-        // Fallback to WordPress factions if JSON file doesn't exist
+        // Handle file not found error
+        return array('error' => 'Factions file not found at ' . $factions_file);
+    }
+}
+
+/**
+ * REST API Callback function to get factions data
+ */
+function tec_theme_get_factions(WP_REST_Request $request) {
+    $factions_data = tec_theme_get_factions_data_from_json();
+    
+    if (isset($factions_data['error'])) {
+        // Fallback to WordPress CPT if JSON fails
+        // ... (existing fallback code remains the same)
         $args = array(
             'post_type'      => 'tec_faction',
             'posts_per_page' => -1,
@@ -260,9 +282,19 @@ function tec_theme_get_factions() {
             }
             wp_reset_postdata();
         }
-        
         return new WP_REST_Response($factions, 200);
+        // Optionally, return the error: return new WP_Error('factions_error', $factions_data['error'], array('status' => 500));
     }
+    
+    return new WP_REST_Response($factions_data, 200);
+}
+
+/**
+ * Helper function for templates to get factions data (used in front-page.php)
+ */
+function tec_get_factions_data() {
+    // Use the same logic as the REST endpoint's primary source
+    return tec_theme_get_factions_data_from_json(); 
 }
 
 /**
@@ -270,8 +302,8 @@ function tec_theme_get_factions() {
  * Integrates with our JSON data file
  */
 function tec_theme_get_crypto_data() {
-    // Path to wallets JSON file in the data directory
-    $wallets_file = ABSPATH . '../data/wallets.json';
+    // Corrected path using dirname() to go up one level from theme dir, then one more level up
+    $wallets_file = dirname(TEC_THEME_DIR) . '/../data/wallets.json'; 
     
     if (file_exists($wallets_file)) {
         $wallets_data = json_decode(file_get_contents($wallets_file), true);
@@ -319,8 +351,8 @@ require_once TEC_THEME_DIR . '/inc/customizer.php';
 function tec_theme_clickup_integration() {
     // Only run this in admin or when specific transients aren't set
     if (is_admin() || (!get_transient('tec_clickup_sync_running') && !wp_doing_ajax())) {
-        // Check if the ClickUp agent file exists
-        $clickup_agent_file = ABSPATH . '../agents/clickup_agent.py';
+        // Corrected path using dirname() to go up one level from theme dir, then one more level up
+        $clickup_agent_file = dirname(TEC_THEME_DIR) . '/../agents/clickup_agent.py'; 
         
         if (file_exists($clickup_agent_file)) {
             // Set a transient to prevent multiple syncs
