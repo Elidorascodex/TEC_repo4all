@@ -64,6 +64,16 @@ function tec_theme_enqueue_scripts() {
     wp_enqueue_style('tec-factions-style', TEC_THEME_URI . '/assets/css/factions.css', array(), TEC_THEME_VERSION);
     wp_enqueue_style('tec-crypto-style', TEC_THEME_URI . '/assets/css/crypto-tracker.css', array(), TEC_THEME_VERSION);
     
+    // Load block-nexus CSS when needed
+    if (is_page_template('templates/template-block-nexus.php')) {
+        wp_enqueue_style('tec-block-nexus-style', TEC_THEME_URI . '/assets/css/block-nexus.css', array(), TEC_THEME_VERSION);
+        
+        // Add syntax highlighting library for code boxes
+        wp_enqueue_style('prismjs-style', 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css', array(), '1.24.1');
+        wp_enqueue_script('prismjs', 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js', array(), '1.24.1', true);
+        wp_enqueue_script('prismjs-json', 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-json.min.js', array('prismjs'), '1.24.1', true);
+    }
+    
     // Scripts
     wp_enqueue_script('tec-navigation', TEC_THEME_URI . '/assets/js/navigation.js', array('jquery'), TEC_THEME_VERSION, true);
     wp_enqueue_script('tec-main', TEC_THEME_URI . '/assets/js/main.js', array('jquery'), TEC_THEME_VERSION, true);

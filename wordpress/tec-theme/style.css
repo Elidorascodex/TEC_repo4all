@@ -976,3 +976,156 @@ article, .page {
 */
 
 /* --- Append below existing styles or integrate carefully --- */
+
+/* Landing Page Specific Styles */
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a, #1f1f1f); /* Darker gradient */
+    color: #00ffcc; /* Cyan text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+.page-content { /* Wrap main content */
+     max-width: 900px;
+     width: 90%;
+     padding: 2rem 1rem;
+     text-align: center;
+     margin-top: 20px; /* Space below header */
+     background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+     border-radius: 15px;
+     border: 1px solid #00ffcc;
+     box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);
+}
+h1, h2, h3 {
+     color: #ffffff; /* White headings */
+     margin-bottom: 1rem;
+     text-shadow: 0 0 10px #00ffcc;
+}
+p {
+    color: #cccccc; /* Lighter grey for paragraphs */
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+.btn {
+    background: linear-gradient(45deg, #00ffcc, #00bfff); /* Cyan to Blue gradient */
+    color: #0e0e0e;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 50px; /* Pill shape */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-block;
+}
+.btn:hover {
+     transform: scale(1.05);
+     box-shadow: 0 0 20px #00ffff;
+}
+.highlight {
+    color: #ff007f; /* Pink highlight */
+    font-weight: bold;
+}
+ul.features {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    text-align: left; /* Align list items left */
+    display: inline-block; /* Center the block */
+}
+ul.features li {
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #cccccc;
+}
+ul.features li::before {
+    content: '⚡'; /* Sparkle bullet */
+    color: #00ffcc;
+    position: absolute;
+    left: 0;
+}
+/* Factions Section */
+.factions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+    margin-top: 2rem;
+    text-align: left;
+}
+.faction-card {
+    background: rgba(255, 255, 255, 0.05); /* Very subtle light bg */
+    border: 1px solid #ff007f; /* Pink border */
+    padding: 1.5rem;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.faction-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 0, 127, 0.3);
+}
+.faction-card h3 {
+     color: #ff007f; /* Pink faction title */
+     margin-top: 0;
+     margin-bottom: 0.5rem;
+     font-size: 1.4rem;
+     text-shadow: 0 0 8px #ff007f;
+}
+.faction-card p {
+     font-size: 0.95rem;
+     color: #b0b0b0; /* Slightly dimmer text */
+     margin-bottom: 1rem;
+}
+.faction-join-btn {
+    background: #ff007f;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+.faction-join-btn:hover {
+    background: #e0006f;
+}
+/* Email Form */
+#join form input[type="email"] {
+    padding: 0.8rem;
+    width: 70%;
+    max-width: 400px;
+    border: 1px solid #00ffcc;
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px; /* Spacing for mobile */
+}
+#join form button.btn {
+    padding: 0.8rem 1.5rem; /* Match input padding */
+    font-size: 1rem; /* Smaller button text */
+}
+/* Footer */
+footer.page-footer {
+    margin-top: 3rem;
+    padding: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    color: #cccccc;
+    text-align: center;
+    width: 100%;
+}
+footer.page-footer a {
+    color: #00ffcc;
+    text-decoration: none;
+}
+footer.page-footer a:hover {
+    color: #ff007f;
+}
