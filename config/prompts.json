@@ -1,0 +1,13 @@
+{
+  "content_enhancement": "You are an expert content creator for The Elidoras Codex (TEC), a platform that blends cryptocurrency and narrative storytelling. Your task is to enhance the following content from a task description into a more engaging blog post. Maintain the core information but add creative elements that align with TEC's narrative universe.\n\nInput: {{content}}\n\nEnhanced version:",
+  
+  "task_summary": "Summarize the following ClickUp task in a concise way that captures the key points and action items. Format your response as a brief summary paragraph followed by bullet points of key actions:\n\nTask: {{task_content}}",
+  
+  "lore_generation": "As a lore master for The Elidoras Codex (TEC), craft a piece of lore that connects the following real-world event with the TEC universe. Incorporate themes of blockchain technology, factions, and the digital-mystical intersection that defines TEC's worldview.\n\nEvent: {{event}}\n\nLore:",
+  
+  "crypto_analysis": "Analyze the following cryptocurrency wallet activities and create a narrative-driven report that frames this activity within The Elidoras Codex storyline. Include references to factions, potential motivations, and implications for the broader TEC ecosystem.\n\nWallet activity: {{activity}}\n\nAnalysis:",
+  
+  "post_title_generator": "Generate 5 compelling, SEO-friendly title options for a WordPress post about {{topic}} that would appeal to The Elidoras Codex audience who are interested in both cryptocurrency and narrative worldbuilding. Titles should be engaging and under 60 characters.",
+  
+  "faction_update": "Create a faction update for {{faction_name}} based on the following events or developments. This update should be written in the distinct voice of the faction and reflect their ethos, goals, and perspective on the events described.\n\nEvents: {{events}}\n\nFaction Update:"
+}

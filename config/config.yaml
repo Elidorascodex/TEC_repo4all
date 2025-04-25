@@ -1,0 +1,74 @@
+# TEC_repo4all Configuration
+
+# Project settings
+project:
+  name: "The Elidoras Codex Automation"
+  version: "1.0.0"
+  description: "AI-powered automation for The Elidoras Codex"
+
+# Agent settings
+agents:
+  clickup:
+    enabled: true
+    list_ids:
+      - "default"  # Replace with your ClickUp list ID
+    statuses:
+      - "Open"
+      - "In Progress"
+      - "Complete"
+      - "Ready for Publishing"
+  
+  wordpress:
+    enabled: true
+    post_status: "draft"  # Options: draft, publish, pending, private
+    default_categories:
+      - "TEC Updates"
+    default_tags:
+      - "Automation"
+      - "TEC"
+  
+  tecbot:
+    enabled: true
+    ai_provider: "openai"  # Options: openai, anthropic
+    model: "gpt-4"  # or gpt-3.5-turbo, claude-2, etc.
+    max_tokens: 2000
+    temperature: 0.7
+
+# Crypto settings
+crypto:
+  enabled: false  # Set to true when crypto tracking is implemented
+  wallets:
+    - name: "TEC Treasury"
+      address: "your-eth-wallet-address"
+      type: "ethereum"
+    - name: "TEC XRP Wallet"
+      address: "your-xrp-wallet-address"
+      type: "xrp"
+  
+  refresh_rate: 3600  # seconds
+
+# Workflow settings
+workflow:
+  default_run_interval: 3600  # Run every hour by default
+  log_level: "info"  # Options: debug, info, warning, error
+  timezone: "UTC"
+  
+  # Pipeline: ClickUp -> Content Generation -> WordPress
+  pipeline:
+    - name: "fetch_clickup_tasks"
+      enabled: true
+    - name: "generate_content"
+      enabled: true
+    - name: "post_to_wordpress"
+      enabled: true
+
+# Notification settings
+notifications:
+  enabled: false  # Set to true when notifications are implemented
+  email:
+    enabled: false
+    recipients:
+      - "your-email@example.com"
+  slack:
+    enabled: false
+    webhook_url: "your-slack-webhook-url"
