@@ -49,8 +49,9 @@ python scripts/run_automation.py
 
 To use the custom `tec-theme` on your WordPress site:
 
-1.  **Package the Theme:** Create a zip archive of the `wordpress/tec-theme` directory. Make sure the `style.css` and `index.php` files are at the root level within the zip file, not inside a nested `tec-theme` folder.
-    *   Example: Select all files/folders inside `wordpress/tec-theme` and zip them directly into `tec-theme.zip`.
+1.  **Package the Theme:** Navigate *inside* the `wordpress/tec-theme` directory. Select **all** files and folders within it (including `style.css`, `index.php`, `assets/`, `inc/`, etc.). Create a zip archive directly from these selected items. Name the zip file something like `tec-theme.zip`. **Crucially, do not zip the parent `tec-theme` folder itself.** The `style.css` file must be at the root level inside the zip archive.
+    *   **Incorrect:** Zipping the `tec-theme` folder results in `tec-theme.zip/tec-theme/style.css`.
+    *   **Correct:** Zipping the *contents* of `tec-theme` results in `tec-theme.zip/style.css`.
 2.  **Upload to WordPress:**
     *   Log in to your WordPress Admin dashboard.
     *   Navigate to `Appearance` -> `Themes`.
