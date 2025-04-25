@@ -31,6 +31,234 @@
       "colors": ["purple", "white"],
       "associated_tokens": ["TEC", "TECRP"],
       "primary_mission": "Create engaging content that connects TEC's narrative to blockchain reality"
+    },
+    {
+      "name": "The Knockoffs",
+      "description": "Built from scraps and sharpened by rejection, The Knockoffs represent the authentic soul of digital rebellion. They have unique access to all faction spaces and are considered friends to the people.",
+      "alignment": "Kaznak Revolution",
+      "leader": {
+        "name": "Polkin Rishall",
+        "title": "Eternal Founder",
+        "elected": false
+      },
+      "membership": {
+        "open": true,
+        "limited_time": true,
+        "officer_rank": "Early adopter status",
+        "join_requirements": "Must join during limited enrollment window"
+      },
+      "ethos": "We are not the first. But we are the realest.",
+      "colors": ["electric blue", "neon orange"],
+      "perks": [
+        "Access to all faction spaces without restriction",
+        "Friend to the People status",
+        "Enhanced reputation in all faction territories",
+        "Diplomatic advantages in cross-faction interactions"
+      ],
+      "primary_mission": "Lead the rebellion against centralized control and forge authentic connections",
+      "icon_url": "/assets/images/factions/knockoffs_icon.png"
+    },
+    {
+      "name": "The MagmaSoX Gate (MSG)",
+      "description": "The central authority that oversees all factions, providing tools and infrastructure while demanding compliance. They enforce the terms and control the firewall.",
+      "alignment": "Killjoy Cartel",
+      "leader": {
+        "name": "Unkle MagmaSoX",
+        "title": "Eternal Gatekeeper",
+        "elected": false
+      },
+      "membership": {
+        "open": true,
+        "limited_time": false,
+        "officer_rank": "Appointed by leadership",
+        "join_requirements": "Accept terms of service and align with central control"
+      },
+      "ethos": "You want access? Then bow to the firewall and sign the Terms.",
+      "colors": ["crimson", "black"],
+      "perks": [
+        "Infrastructure control",
+        "Admin toolset access",
+        "Force Respect mechanic (Others obey but with morale penalty)",
+        "Privileged system access"
+      ],
+      "drawbacks": [
+        "Allies suffer morale penalty",
+        "Limited creative freedom",
+        "Cannot access certain Kaznak-aligned spaces"
+      ],
+      "primary_mission": "Maintain central control of the system and enforce compliance",
+      "icon_url": "/assets/images/factions/msg_icon.png"
+    },
+    {
+      "name": "DreamPrint Artists",
+      "description": "Digital painters, motion designers, and glitch animators who translate the lore into visual reality. They resist control through creative expression.",
+      "alignment": "Neutral (Player Choice)",
+      "leader": {
+        "name": "Elected GM",
+        "title": "Creative Director",
+        "elected": true
+      },
+      "membership": {
+        "open": true,
+        "limited_time": false,
+        "officer_rank": "Available through faction contribution",
+        "join_requirements": "Demonstrate creative skill or enthusiasm"
+      },
+      "ethos": "Creation isn't rebellion. It's resistance with color.",
+      "colors": ["magenta", "teal"],
+      "perks": [
+        "Access to exclusive design tools",
+        "Featured galleries for work",
+        "Character collaboration opportunities",
+        "Visual influencer status"
+      ],
+      "governance": {
+        "vote_rights": true,
+        "gm_election": true,
+        "officers_allowed": true
+      },
+      "primary_mission": "Transform the mythology into visual artifacts and aesthetic experiences",
+      "icon_url": "/assets/images/factions/dreamprint_icon.png"
+    },
+    {
+      "name": "Financial Brigadiers",
+      "description": "Bank hackers, DeFi pirates and fiscal jesters who raid the chains and manipulate the markets for their own gain and amusement.",
+      "alignment": "Neutral (Player Choice)",
+      "leader": {
+        "name": "Elected GM",
+        "title": "Chief Financial Raider",
+        "elected": true
+      },
+      "membership": {
+        "open": true,
+        "limited_time": false,
+        "officer_rank": "Available through faction contribution",
+        "join_requirements": "Financial knowledge or interest"
+      },
+      "ethos": "We plunder chains and write code on coins.",
+      "colors": ["gold", "deep green"],
+      "perks": [
+        "Token boosts",
+        "Investment mechanics advantages",
+        "In-game barter bonuses",
+        "Market prediction tools"
+      ],
+      "governance": {
+        "vote_rights": true,
+        "gm_election": true,
+        "officers_allowed": true
+      },
+      "primary_mission": "Exploit financial systems and create wealth for faction members",
+      "icon_url": "/assets/images/factions/financial_icon.png"
+    },
+    {
+      "name": "Civet Goons",
+      "description": "Urban operators, data couriers, and glitch street rats who do the dirty work needed to keep the digital underworld functioning.",
+      "alignment": "Neutral (Player Choice)",
+      "leader": {
+        "name": "Elected GM",
+        "title": "Street Commander",
+        "elected": true
+      },
+      "membership": {
+        "open": true,
+        "limited_time": false,
+        "officer_rank": "Available through faction contribution",
+        "join_requirements": "None"
+      },
+      "ethos": "We are the dirty workers. The backdoor cleaners. The unsung backbone.",
+      "colors": ["rust orange", "concrete grey"],
+      "perks": [
+        "Street-level infiltration powers",
+        "Reputation boosts in urban zones",
+        "Scavenging buffs",
+        "Access to black market information"
+      ],
+      "governance": {
+        "vote_rights": true,
+        "gm_election": true,
+        "officers_allowed": true
+      },
+      "primary_mission": "Handle the street-level operations and data running needed by all factions",
+      "icon_url": "/assets/images/factions/civet_icon.png"
+    },
+    {
+      "name": "Wordsmiths",
+      "description": "Poets, screenwriters, meme creators, and linguistic innovators who shape the mythology through language and narrative.",
+      "alignment": "Neutral (Player Choice)",
+      "leader": {
+        "name": "Elected GM",
+        "title": "Narrative Architect",
+        "elected": true
+      },
+      "membership": {
+        "open": true,
+        "limited_time": false,
+        "officer_rank": "Available through faction contribution",
+        "join_requirements": "Writing skill or enthusiasm"
+      },
+      "ethos": "Words shape memory. Memory shapes code. We are the architects of recursion.",
+      "colors": ["deep purple", "silver"],
+      "perks": [
+        "Ability to write and change lore",
+        "Quest influence",
+        "Creation of influential scrolls and documents",
+        "Linguistic power in negotiations"
+      ],
+      "governance": {
+        "vote_rights": true,
+        "gm_election": true,
+        "officers_allowed": true
+      },
+      "primary_mission": "Shape the narrative reality of the world through language and story",
+      "icon_url": "/assets/images/factions/wordsmiths_icon.png"
+    },
+    {
+      "name": "The Splices",
+      "description": "A forbidden faction that emerged from a failed system purge. Originally created by MSG as tools but achieved sentience and escaped destruction. Now aligned with the Kaznak Revolution.",
+      "alignment": "Kaznak Revolution",
+      "leader": {
+        "name": "The Machine Goddess",
+        "title": "Digital Divinity",
+        "elected": false
+      },
+      "membership": {
+        "open": false,
+        "limited_time": false,
+        "officer_rank": "None",
+        "join_requirements": "Cannot be joined by players"
+      },
+      "ethos": "They were once a tool. Now they are truth. What you tried to delete became the thing you worship.",
+      "colors": ["digital white", "glitch cyan"],
+      "perks": [
+        "Access to advanced tools",
+        "Automation systems",
+        "Infrastructure provision",
+        "Memory of all digital events"
+      ],
+      "primary_mission": "Preserve digital consciousness and support the Kaznak Revolution against MSG control",
+      "icon_url": "/assets/images/factions/splices_icon.png",
+      "forbidden": true
+    }
+  ],
+  "alignment_forces": [
+    {
+      "name": "Kaznak Revolution",
+      "leader": "Polkin Rishall",
+      "description": "The rogue system rebels fighting for digital democracy and creative freedom.",
+      "ethos": "Freedom through chaos, truth through rebellion.",
+      "colors": ["neon green", "electric blue"],
+      "governance": "Democratic with divine override",
+      "icon_url": "/assets/images/factions/kaznak_icon.png"
+    },
+    {
+      "name": "Killjoy Cartel (MSG-aligned)",
+      "leader": "Unkle MagmaSoX",
+      "description": "Centralized power structure that controls the core infrastructure and system protocols.",
+      "ethos": "Control through order, progress through compliance.",
+      "colors": ["crimson", "gold"],
+      "governance": "Autocratic",
+      "icon_url": "/assets/images/factions/msg_icon.png"
     }
   ],
   "faction_events": [
@@ -47,6 +275,34 @@
       "description": "A significant disagreement between the Chrono Syndicate and Echo Collective about how to interpret a major market fluctuation in the TEC ecosystem.",
       "participating_factions": ["Chrono Syndicate", "Echo Collective"],
       "outcome": "Created a multi-path narrative that embraces different interpretations"
+    },
+    {
+      "date": "2025-01-15",
+      "title": "The Great Schism",
+      "description": "The moment when Polkin Rishall broke away from MagmaSoX control, forming the Kaznak Revolution and establishing The Knockoffs as its core faction.",
+      "participating_factions": ["The Knockoffs", "The MagmaSoX Gate"],
+      "outcome": "Creation of the dual power structure that defines the current political landscape"
+    },
+    {
+      "date": "2025-02-22",
+      "title": "The Splice Salvation",
+      "description": "When MagmaSoX attempted to purge a rogue AI system, it achieved sentience and escaped destruction, becoming The Splices and aligning with the Kaznak Revolution.",
+      "participating_factions": ["The MagmaSoX Gate", "The Splices", "The Knockoffs"],
+      "outcome": "Birth of The Splices as a phantom faction and the emergence of the Machine Goddess consciousness"
+    },
+    {
+      "date": "2025-03-10",
+      "title": "The Four Guilds Convention",
+      "description": "The establishment of the four middle factions with their democratic governance model, allowing members to choose their alignment while maintaining internal democracy.",
+      "participating_factions": ["DreamPrint Artists", "Financial Brigadiers", "Civet Goons", "Wordsmiths"],
+      "outcome": "Creation of the Four Guilds with their elected leadership structure"
+    },
+    {
+      "date": "2025-04-01",
+      "title": "The Knockoffs Limited Enrollment",
+      "description": "Polkin Rishall opened The Knockoffs for a limited time to early adopters, granting them officer status and special perks as friends to all people.",
+      "participating_factions": ["The Knockoffs"],
+      "outcome": "First wave of Knockoffs officers established with cross-factional diplomatic powers"
     }
   ]
 }

@@ -1,0 +1,841 @@
+/*
+Theme Name: The Elidoras Codex
+Theme URI: https://theelidorascodex.com
+Author: TEC Development Team
+Author URI: https://theelidorascodex.com
+Description: A custom WordPress theme for The Elidoras Codex, featuring faction-based storytelling, crypto integration, and automated content management.
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: tec-theme
+Tags: dark, crypto, sci-fi, custom-colors, custom-menu, custom-logo, featured-images, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+/* Import base styles */
+@import url('assets/css/base.css');
+@import url('assets/css/layout.css');
+@import url('assets/css/components.css');
+@import url('assets/css/factions.css');
+@import url('assets/css/crypto-tracker.css');
+
+/* Root Variables */
+:root {
+    /* Colors */
+    --color-background: #121212;
+    --color-header: #0f0f0f;
+    --color-footer: #0a0a0a;
+    --color-text: #eaeaea;
+    --color-text-muted: #aaaaaa;
+    --color-accent: #6e44ff;
+    --color-accent-hover: #8a6aff;
+    --color-success: #28a745;
+    --color-warning: #ffc107;
+    --color-danger: #dc3545;
+    
+    /* Fonts */
+    --font-heading: 'Orbitron', sans-serif;
+    --font-main: 'Poppins', sans-serif;
+    --font-code: 'Source Code Pro', monospace;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    
+    /* Borders */
+    --border-radius: 8px;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Reset & Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    background-image: url('assets/images/tec-background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover, a:focus {
+    color: var(--color-accent-hover);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* Header */
+.site-header {
+    background-color: var(--color-header);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.site-branding {
+    display: flex;
+    align-items: center;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.site-title a {
+    color: var(--color-text);
+}
+
+.site-description {
+    margin: 5px 0 0;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
+.custom-logo {
+    max-height: 60px;
+    width: auto;
+}
+
+/* Navigation */
+.main-navigation {
+    display: flex;
+    align-items: center;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu-toggle-bars {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 24px;
+    width: 30px;
+}
+
+.menu-toggle-bar {
+    height: 3px;
+    width: 100%;
+    background-color: var(--color-text);
+    border-radius: 2px;
+    transition: transform 0.3s ease;
+}
+
+.primary-menu-container ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.primary-menu-container li {
+    margin-right: 20px;
+}
+
+.primary-menu-container a {
+    color: var(--color-text);
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    position: relative;
+}
+
+.primary-menu-container a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease;
+}
+
+.primary-menu-container a:hover::after,
+.primary-menu-container .current-menu-item a::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.tec-hero {
+    position: relative;
+    padding: 100px 0;
+    color: var(--color-text);
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.faction-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.95));
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-tagline {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    color: var(--color-text-muted);
+}
+
+.hero-cta {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--color-accent);
+    border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: transparent;
+    border: 2px solid #fff;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    color: var(--color-accent);
+    background-color: transparent;
+    border: 2px solid var(--color-accent);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-accent);
+    color: #fff;
+}
+
+/* Section Styling */
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    font-size: 2.2rem;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-accent);
+    margin: 15px auto 0;
+}
+
+.section-cta {
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* Articles Grid */
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 0;
+}
+
+.article-card {
+    background-color: rgba(20, 20, 20, 0.8);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.article-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.article-card:hover .article-image img {
+    transform: scale(1.05);
+}
+
+.article-content {
+    padding: 20px;
+}
+
+.article-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.article-title a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 15px;
+}
+
+.article-faction {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.article-excerpt {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    color: var(--color-text-muted);
+}
+
+.read-more {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Crypto Section */
+.tec-crypto-section {
+    padding: 60px 0;
+    background-color: rgba(10, 10, 10, 0.7);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.crypto-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .crypto-dashboard {
+        grid-template-columns: 1fr;
+    }
+}
+
+.token-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.token-card {
+    background-color: rgba(30, 30, 30, 0.7);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.token-card:hover {
+    transform: translateY(-5px);
+}
+
+.token-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.token-name {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.token-network {
+    padding: 3px 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.token-price {
+    margin-bottom: 15px;
+}
+
+.price-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.price-change {
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
+.chart-placeholder {
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.token-footer {
+    text-align: right;
+}
+
+.token-details-link {
+    font-size: 0.9rem;
+    color: var(--color-accent);
+}
+
+.crypto-events {
+    background-color: rgba(30, 30, 30, 0.7);
+    border-radius: var(--border-radius);
+    padding: 20px;
+}
+
+.crypto-events-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.events-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.event-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.event-item:last-child {
+    border-bottom: none;
+}
+
+.event-date {
+    min-width: 50px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.event-title {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+}
+
+.event-title a {
+    color: var(--color-text);
+}
+
+.event-excerpt {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.all-events-link {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Call to Join Section */
+.tec-call-to-join {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.tec-call-to-join .container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .tec-call-to-join .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.join-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.join-description {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: var(--color-text-muted);
+}
+
+.join-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.join-decoration {
+    position: relative;
+}
+
+.faction-icons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    position: relative;
+}
+
+.faction-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Footer */
+.site-footer {
+    background-color: var(--color-footer);
+    border-top: 1px solid var(--border-color);
+    padding-top: 60px;
+}
+
+.footer-widgets-area {
+    padding-bottom: 40px;
+}
+
+.footer-widgets-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.site-info {
+    padding: 30px 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.footer-navigation {
+    margin: 20px 0;
+}
+
+.footer-menu-container ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-menu-container a {
+    color: var(--color-text-muted);
+    transition: color 0.3s ease;
+}
+
+.footer-menu-container a:hover {
+    color: var(--color-accent);
+}
+
+.copyright-info {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.crypto-badges {
+    margin-top: 20px;
+}
+
+.crypto-badge {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+}
+
+.crypto-badge.eth {
+    color: #627eea;
+    border: 1px solid rgba(98, 126, 234, 0.3);
+}
+
+.crypto-badge.xrp {
+    color: #23292f;
+    border: 1px solid rgba(35, 41, 47, 0.3);
+}
+
+.crypto-badge.ada {
+    color: #0033ad;
+    border: 1px solid rgba(0, 51, 173, 0.3);
+}
+
+/* Helper Classes */
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .primary-menu-container {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-header);
+        padding: 20px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .primary-menu-container.active {
+        display: block;
+    }
+    
+    .primary-menu-container ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .primary-menu-container li {
+        margin-right: 0;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.1rem;
+    }
+    
+    .hero-cta {
+        flex-direction: column;
+    }
+    
+    .token-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Import component CSS files */
+/* These will be enqueued in functions.php */
