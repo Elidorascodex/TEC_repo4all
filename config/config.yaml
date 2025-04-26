@@ -33,6 +33,25 @@ agents:
     model: "gpt-4"  # or gpt-3.5-turbo, claude-2, etc.
     max_tokens: 2000
     temperature: 0.7
+  
+  stability:
+    enabled: true
+    output_dir: "output/images"  # Relative to project root
+    default_model: "core"  # Options: ultra, core, sd3
+    default_aspect_ratio: "1:1"
+    default_format: "png"
+    style_presets:
+      factions: "fantasy-art"
+      tech: "digital-art"
+      characters: "cinematic"
+      landscapes: "enhance"
+    brand_colors:
+      deep_space_blue: "#1A1A2E"
+      nexus_purple: "#7B2CBF"
+      digital_teal: "#0F8B8D"
+      ethereal_pink: "#FF7AA2"
+      cyber_gold: "#FFD700"
+      reality_red: "#E94B3C"
 
 # ClickUp AI Automation Configuration
 clickup:
