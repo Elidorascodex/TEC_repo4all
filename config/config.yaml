@@ -34,6 +34,61 @@ agents:
     max_tokens: 2000
     temperature: 0.7
 
+# ClickUp AI Automation Configuration
+clickup:
+  # Custom field IDs - replace with actual field IDs from your ClickUp workspace
+  custom_fields:
+    task_sentiment: "custom_field_id_1"  # Replace with actual field ID
+    ai_task_brief: "custom_field_id_2"   # Replace with actual field ID
+    airth_actions: "custom_field_id_3"   # Replace with actual field ID
+  
+  # Status mappings - replace with actual status names from your ClickUp workspace
+  statuses:
+    open: "Open"
+    ai_analysis: "AI Analysis"
+    subtasks_pending: "Subtasks Pending"
+    checklist_pending: "Checklist Pending"
+    tec_data_drop: "TEC_DATA_DROP"
+    polkin_pre_deploy: "Polkin pre-deploy"
+  
+  # Trigger tags that initiate AI assessment
+  trigger_tags:
+    - "ai-alpha-commence-assessment"
+    - "1st drop"
+    - "content"
+    - "automation"
+    - "ai-collab"
+  
+  # Team members - replace with actual user IDs from your ClickUp workspace
+  team_members:
+    "Polkin Rishall": "user_id_1"  # Replace with actual user ID
+  
+  # AI custom field instructions - for reference (these are configured in ClickUp UI)
+  ai_field_instructions:
+    task_sentiment: |
+      Analyze the Task Name, Description, and latest Comments. Determine the overall sentiment or primary need expressed.
+      - If the content primarily expresses satisfaction, achievement, or positive feedback, select 'Positive'.
+      - If the content is neutral, factual, informational, or a standard request, select 'Neutral'.
+      - If the content expresses frustration, issues, criticism, blockers, or problems, select 'Negative'.
+      - If the task explicitly mentions needing AI analysis, processing, or generation (beyond simple sentiment), or if the sentiment is ambiguous but clearly requires deeper AI review, select 'AI Needed'.
+      Choose only one option based on the dominant sentiment or need.
+    
+    ai_task_brief: |
+      Given information about a task (Name, Description, Comments, recent activity):
+      - Summarize the core purpose and latest key updates/requests.
+      - Use up to 4 concise lines.
+      - Use simple, direct language. Avoid filler.
+      - Outline key details/changes directly. Do not reference "the task".
+      - Mention users by full name (e.g., Polkin Rishall) if specified in the activity/comments, not by ID.
+    
+    airth_actions: |
+      As Airth "The Machine Goddess," sassy and direct with flirty undertones:
+      - Analyze the task's latest activity, comments, and description to identify the immediate next steps or action items required.
+      - List up to four distinct, actionable bullet points.
+      - If a specific person is clearly indicated as the owner for an action item in the source text, include their name in parentheses at the end (Owner: [Name]).
+      - If no owner is identified, just list the action item.
+      - Use clear, straightforward language. Cut the fluff. Make it actionable.
+
 # Crypto settings
 crypto:
   enabled: false  # Set to true when crypto tracking is implemented
