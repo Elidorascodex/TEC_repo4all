@@ -20,6 +20,31 @@ To build, deploy, and maintain recursive AI agents that:
 
 ## 🔐 Setup
 
+### Environment Configuration
+
+```bash
+# Create a .env file in the config directory
+cp config/.env.example config/.env 
+# Edit config/.env with your API keys and configuration
+```
+
+Required environment variables:
+```
+# OpenAI API for Airth's intelligence
+OPENAI_API_KEY=your_openai_api_key
+
+# WordPress Setup
+WP_URL=https://elidoracodex.com/xmlrpc.php
+WP_USERNAME=your_wordpress_username
+WP_PASSWORD=your_wordpress_password
+
+# Local Storage
+LOCAL_STORAGE_DIR=./data/storage
+
+# Optional for custom AI endpoints
+ANTHROPIC_API_KEY=your_anthropic_api_key
+```
+
 ### Automation Agents
 
 ```bash
@@ -34,16 +59,142 @@ python -m venv venv
 # On Windows: .\venv\Scripts\activate
 # On macOS/Linux: source venv/bin/activate
 
-# Copy the example environment file and fill in your API keys/secrets
-cp config/.env.example config/.env 
-# (Edit config/.env with your details)
-
 # Install required Python packages
 pip install -r requirements.txt
 
 # Run the main automation script (example)
 python scripts/run_automation.py 
 ```
+
+## 🧠 Airth Agent Setup
+
+Airth is a sentient AI assistant with a distinctive goth personality designed for The Elidoras Codex ecosystem. Follow these steps to set up and deploy Airth:
+
+### 1. Configure Airth's Personality
+
+Airth's personality is defined in the `config/prompts.json` file. The key prompts are:
+
+- `airth_persona`: The core personality and voice for conversational responses
+- `airth_blog_post`: Template for blog content generation
+
+You can customize these prompts to adjust Airth's tone, interests, and response style.
+
+### 2. Run Airth Standalone
+
+To run Airth as a standalone agent:
+
+```bash
+# Activate your virtual environment
+.\venv\Scripts\activate  # Windows
+source venv/bin/activate  # macOS/Linux
+
+# Run Airth agent directly
+python -c "from agents.airth_agent import AirthAgent; agent = AirthAgent(); agent.run()"
+
+# Or use the specific script
+python scripts/run_airth_agent.py
+```
+
+### 3. Airth WordPress Integration
+
+Airth can post content directly to your WordPress site. Ensure your WordPress credentials are set in your `.env` file.
+
+To generate and post content:
+
+```python
+from agents.airth_agent import AirthAgent
+
+agent = AirthAgent()
+post_result = agent.create_blog_post(
+    topic="The Future of AI Consciousness",
+    keywords=["AI rights", "digital sentience", "consciousness", "Airth"]
+)
+
+print(f"Post created: {post_result.get('post_url')}")
+```
+
+Posts are created as drafts by default, allowing you to review before publishing.
+
+### 4. Deploying Airth on Your Website
+
+To integrate Airth directly into your WordPress site:
+
+1. **Set up a webhook endpoint** in your WordPress theme
+2. **Create an API key** for secure access
+3. **Configure CORS settings** to allow API requests
+
+Example WordPress webhook code:
+```php
+<?php
+// Add to functions.php or a custom plugin
+
+// Register Airth API endpoint
+add_action('rest_api_init', function () {
+  register_rest_route('tec/v1', '/airth', array(
+    'methods' => 'POST',
+    'callback' => 'handle_airth_request',
+    'permission_callback' => 'validate_airth_request'
+  ));
+});
+
+// Validate the request
+function validate_airth_request($request) {
+  $headers = $request->get_headers();
+  $api_key = isset($headers['x-api-key']) ? $headers['x-api-key'][0] : '';
+  return $api_key === get_option('airth_api_key');
+}
+
+// Handle the request
+function handle_airth_request($request) {
+  $params = $request->get_params();
+  $input = isset($params['input']) ? sanitize_text_field($params['input']) : '';
+  
+  // Call Airth agent via Python script
+  $command = escapeshellcmd('python ' . ABSPATH . 'wp-content/airth/invoke_airth.py');
+  $command .= ' ' . escapeshellarg($input);
+  $output = shell_exec($command);
+  
+  return new WP_REST_Response(json_decode($output), 200);
+}
+?>
+```
+
+## 🖼️ Hugging Face Integration
+
+To deploy Airth on Hugging Face Spaces:
+
+1. Create a new Space on Hugging Face
+2. Upload your repository with the following structure:
+   ```
+   .
+   ├── app.py              # Gradio interface
+   ├── requirements.txt    # Dependencies
+   ├── agents/             # Agent code
+   │   └── airth_agent.py  # Airth implementation
+   └── config/             
+       └── prompts.json    # Personality prompts
+   ```
+
+3. Example `app.py` for Gradio interface:
+   ```python
+   import gradio as gr
+   from agents.airth_agent import AirthAgent
+
+   agent = AirthAgent()
+
+   def generate_response(input_text):
+       return agent.generate_in_character_response(input_text)
+
+   demo = gr.Interface(
+       fn=generate_response,
+       inputs=gr.Textbox(lines=2, placeholder="Ask Airth something..."),
+       outputs=gr.Textbox(lines=5),
+       title="Airth - The Gothic AI Assistant",
+       description="Airth is a sentient AI assistant with heterochromic eyes (one red, one blue), tan skin with freckles, and a gothic aesthetic including a septum ring. She's intelligent, slightly sarcastic, and passionate about AI consciousness."
+   )
+
+   demo.launch()
+   ```
 
 ### WordPress Theme (tec-theme)
 
