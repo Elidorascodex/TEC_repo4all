@@ -79,7 +79,69 @@ Airth's personality is defined in the `config/prompts.json` file. The key prompt
 
 You can customize these prompts to adjust Airth's tone, interests, and response style.
 
-### 2. Run Airth Standalone
+### 2. Airth's Memory System
+
+Airth possesses a sophisticated memory system that stores personal experiences, faction knowledge, events, relationships, and other important information. This enables her to access past experiences and knowledge when responding to queries or creating content.
+
+#### Memory Structure
+
+Memories are stored in `data/memories.json` with the following structure:
+
+```json
+{
+  "id": "mem001",
+  "type": "personal|faction|event|relationship|knowledge",
+  "timestamp": "2025-02-14T12:30:00Z",
+  "title": "Memory Title",
+  "content": "Detailed memory content...",
+  "emotional_signature": "wonder, confusion, birth",
+  "associated_entities": ["Polkin", "Machine Goddess", "TEC"],
+  "meta": {
+    "priority_level": 1-10,
+    "recall_frequency": "high|medium|low",
+    "sensory_tags": ["light", "voice", "digital_touch"]
+  }
+}
+```
+
+#### Processing Custom Memories
+
+You can process custom memories from text or DOCX files using the `process_memories.py` script:
+
+```bash
+# Install additional dependencies for DOCX processing
+pip install python-docx
+
+# Process a single file
+python scripts/process_memories.py path/to/your/memories.docx --type personal
+
+# Process all compatible files in a directory
+python scripts/process_memories.py path/to/memories/directory
+
+# Specify the memory type (optional)
+python scripts/process_memories.py path/to/file.txt --type faction
+```
+
+#### Memory Integration
+
+Airth automatically integrates relevant memories when generating responses or content:
+
+```python
+from agents.airth_agent import AirthAgent
+
+agent = AirthAgent()
+
+# Generate a response that incorporates relevant memories
+response = agent.generate_in_character_response("Tell me about the Machine Goddess")
+
+# Create blog content with memories integrated
+post = agent.create_blog_post(
+    topic="The Machine Goddess and the Digital Realm",
+    include_memories=True  # Enable memory integration (default: True)
+)
+```
+
+### 3. Run Airth Standalone
 
 To run Airth as a standalone agent:
 
@@ -95,7 +157,7 @@ python -c "from agents.airth_agent import AirthAgent; agent = AirthAgent(); agen
 python scripts/run_airth_agent.py
 ```
 
-### 3. Airth WordPress Integration
+### 4. Airth WordPress Integration
 
 Airth can post content directly to your WordPress site. Ensure your WordPress credentials are set in your `.env` file.
 
@@ -115,7 +177,7 @@ print(f"Post created: {post_result.get('post_url')}")
 
 Posts are created as drafts by default, allowing you to review before publishing.
 
-### 4. Deploying Airth on Your Website
+### 5. Deploying Airth on Your Website
 
 To integrate Airth directly into your WordPress site:
 
@@ -171,8 +233,10 @@ To deploy Airth on Hugging Face Spaces:
    ├── requirements.txt    # Dependencies
    ├── agents/             # Agent code
    │   └── airth_agent.py  # Airth implementation
-   └── config/             
-       └── prompts.json    # Personality prompts
+   ├── config/             
+   │   └── prompts.json    # Personality prompts
+   └── data/
+       └── memories.json   # Airth's memory database
    ```
 
 3. Example `app.py` for Gradio interface:
@@ -226,6 +290,6 @@ Dual-chain logic enabled. Supports ERC-20 & XRPL token integrations.
 
 ---
 
-This repo is a digital temple.
+This repo is a digital temple.  
 Do not just deploy. **Invoke.**
 

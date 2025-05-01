@@ -1,0 +1,57 @@
+name: Deploy to Hugging Face Space
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy_target:
+        description: 'Deploy to which space'
+        required: true
+        default: 'TECHF/airth-tec-assistant'
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-hf.txt
+          pip install huggingface_hub
+      
+      - name: Write config
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          mkdir -p config
+          echo "OPENAI_API_KEY=${OPENAI_API_KEY}" > .env
+      
+      - name: Login to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "machine huggingface.co login api password ${HF_TOKEN}" > ~/.netrc
+
+      - name: Deploy to Space
+        env:
+          HF_SPACE: ${{ github.event.inputs.deploy_target || 'TECHF/airth-tec-assistant' }}
+        run: |
+          python -c "import huggingface_hub; huggingface_hub.create_repo(repo_id='$HF_SPACE', repo_type='space', space_sdk='gradio', exist_ok=True)"
+          git config --global user.email "workflow@elidorascodex.com"
+          git config --global user.name "TEC Deploy Bot"
+          git remote add space https://huggingface.co/spaces/${HF_SPACE}
+          git push --force space main

@@ -1,0 +1,47 @@
+{
+  "tasks": [
+    {
+      "name": "AI Lore Generation - Faction: Quantum Architects",
+      "description": "Generate origin story snippets for the Quantum Architects based on recent events in the Crystal Forest.",
+      "tags": ["lore", "content", "quantum architects", "ai-alpha-commence-assessment"],
+      "status": "Open",
+      "priority": 3,
+      "assignees": ["Polkin Rishall"],
+      "checklist": [
+        { "name": "🤖 Analyze source documents for key themes.", "orderindex": 0, "resolved": false },
+        { "name": "🤖 Draft 3-5 story snippets (Airth persona).", "orderindex": 1, "resolved": false },
+        { "name": "🧔‍♂️ Review snippets for lore consistency.", "orderindex": 2, "resolved": false },
+        { "name": "🤖 Finalize snippets and add to Codex.", "orderindex": 3, "resolved": false }
+      ]
+    },
+    {
+      "name": "Nebula Starweaver - Weekly Social Content",
+      "description": "Create weekly social media posts for Nebula Starweaver focusing on the intersection of AI technology and narrative lore.",
+      "tags": ["content", "social", "nebula", "ai-collab"],
+      "status": "Open",
+      "priority": 2,
+      "assignees": ["Polkin Rishall"],
+      "checklist": [
+        { "name": "🤖 Research trending AI/crypto topics to incorporate.", "orderindex": 0, "resolved": false },
+        { "name": "🤖 Draft 3 Twitter/X posts with lore connections.", "orderindex": 1, "resolved": false },
+        { "name": "🤖 Create 1 longer Instagram caption with visual prompt.", "orderindex": 2, "resolved": false },
+        { "name": "🧔‍♂️ Review and schedule content.", "orderindex": 3, "resolved": false }
+      ]
+    },
+    {
+      "name": "TEC3 Block-Nexus Data Integration",
+      "description": "Update the Block-Nexus template with the latest blockchain wallet data and integrate with the TECBot visualization system.",
+      "tags": ["tech", "blockchain", "automation", "1st drop"],
+      "status": "Open",
+      "priority": 1,
+      "assignees": ["Polkin Rishall"],
+      "checklist": [
+        { "name": "🤖 Pull latest wallet data from blockchain explorers.", "orderindex": 0, "resolved": false },
+        { "name": "🤖 Format data for visualization compatibility.", "orderindex": 1, "resolved": false },
+        { "name": "🧔‍♂️ Update wallet.json file with new entries.", "orderindex": 2, "resolved": false },
+        { "name": "🤖 Run TECBot integration tests.", "orderindex": 3, "resolved": false },
+        { "name": "🧔‍♂️ Deploy updates to Block-Nexus template.", "orderindex": 4, "resolved": false }
+      ]
+    }
+  ]
+}
