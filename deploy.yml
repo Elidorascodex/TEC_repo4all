@@ -1,0 +1,25 @@
+name: 🚀 TEC Auto-Deploy (SFTP)
+
+on:
+  push:
+    branches:
+      - main  # or 'staging' if using a staging branch
+
+jobs:
+  deploy:
+    name: 🔁 Upload to TEC via SFTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 🚀 SFTP Deploy
+        uses: pressidium/lftp-mirror-action@v1
+        with:
+          sftp_host: ${{ secrets.SFTP_HOST }}
+          sftp_user: ${{ secrets.SFTP_USERNAME }}
+          sftp_password: ${{ secrets.SFTP_PASSWORD }}
+          local_dir: site  # change this to the folder you're deploying
+          remote_dir: /public_html/TEC/  # update to your target path
+          options: "--reverse --delete --verbose"
